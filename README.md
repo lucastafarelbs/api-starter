@@ -1,32 +1,32 @@
 # api-start
 Clonando o repo você terá uma api básica, preparada para autenticação e CRUD, os códigos estão modularizados para que você possa escolher outras ferramentas se assim preferir.
 
-###Ferramentas
+### Ferramentas
 
-+ ####[NodeJS](https://nodejs.org/en/)
++ #### [NodeJS](https://nodejs.org/en/)
   Para desenvolver esse starter foi utilizada a a versão LTS do nodejs, que era a: `8.9.3`.
 
-+ ####[MongoDB](https://www.mongodb.com)
++ #### [MongoDB](https://www.mongodb.com)
   Banco de dados não relacional, o MongoDB foi escolhido como banco desse starter devido à sua alta popularidade.
 
-+ ####[Hapi](http://hapijs.com)
++ #### [Hapi](http://hapijs.com)
   Framework para controlar as rotas. Escolhido por ter agilizar o desenvolvimento das aplicações com uma baixa curva de aprendizado e sua grande quantidade de plugins.
 
-+ ####[JWT authentication](https://jwt.io/)
++ #### [JWT authentication](https://jwt.io/)
   Caso você tenha optado por outro http-router, essa parte precisará ser readequada ao seu novo http-router, pois faz uso do plugin hapi-auth-jwt.
 
-+ ####[dotEnv](https://www.npmjs.com/package/dotenv)
++ #### [dotEnv](https://www.npmjs.com/package/dotenv)
   Módulo para carregar configurações via arquivo `.env` serve para colocarmos informações de configuração que não devem ficar visíveis quando o code subir para o gerenciador de versão, como por exemplo senhas de acesso à APIs externas.
 
 
-###Utilização
-+ ####Certifique-se de ter instalado em seu computador:
+### Utilização
++ #### Certifique-se de ter instalado em seu computador:
   - **[NodeJS](https://nodejs.org/en/)**, para conferir, abra um terminal e digite `node --version`
   - **[MongoDB](https://www.mongodb.com)**, para conferir, abra um terminal e digite `mongo --version`
-+ #####Clone o repositório
-+ #####Instale as dependências com `npm install`
-+ #####Certifique-se de executar o MongoDB como o comando `mongod` ou de colocá-lo em execução automática, para que a API funcione, é essencial que o mongo esteja sendo executado.
-+ #####Execute e você terá uma api escutando em `localhost:4000`
++ ##### Clone o repositório
++ ##### Instale as dependências com `npm install`
++ ##### Certifique-se de executar o MongoDB como o comando `mongod` ou de colocá-lo em execução automática, para que a API funcione, é essencial que o mongo esteja sendo executado.
++ ##### Execute e você terá uma api escutando em `localhost:4000`
   - **Você irá precisar de uma ferramenta para fazer requisições HTTP**   
   Para isso você pode instalar o [POSTMAN](https://www.getpostman.com/)
   que é uma ótima ferramenta, antes um app do chrome, hoje um software standalone que você pode baixar e instalar sem dificuldade.  
