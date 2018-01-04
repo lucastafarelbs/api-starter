@@ -1,4 +1,4 @@
-# api-start
+# api-starter
 Clonando o repo você terá uma api básica, preparada para autenticação e CRUD, os códigos estão modularizados para que você possa escolher outras ferramentas se assim preferir.
 
 ### Ferramentas
@@ -9,11 +9,11 @@ Clonando o repo você terá uma api básica, preparada para autenticação e CRU
 + #### [MongoDB](https://www.mongodb.com)
   Banco de dados não relacional, o MongoDB foi escolhido como banco desse starter devido à sua alta popularidade.
 
-+ #### [Hapi](http://hapijs.com)
-  Framework para controlar as rotas. Escolhido por ter agilizar o desenvolvimento das aplicações com uma baixa curva de aprendizado e sua grande quantidade de plugins.
++ #### [Restify](http://restify.com)
+  Framework para controlar as rotas. Escolhido por ser middleware-based, permitindo alta gestão sobre tudo o que acontece na aplicação.
 
 + #### [JWT authentication](https://jwt.io/)
-  Caso você tenha optado por outro http-router, essa parte precisará ser readequada ao seu novo http-router, pois faz uso do plugin hapi-auth-jwt.
+  JWT é apenas o protocolo de transporte de informações seguras.
 
 + #### [dotEnv](https://www.npmjs.com/package/dotenv)
   Módulo para carregar configurações via arquivo `.env` serve para colocarmos informações de configuração que não devem ficar visíveis quando o code subir para o gerenciador de versão, como por exemplo senhas de acesso à APIs externas.
@@ -26,14 +26,14 @@ Clonando o repo você terá uma api básica, preparada para autenticação e CRU
 + ##### Clone o repositório
 + ##### Instale as dependências com `npm install`
 + ##### Certifique-se de executar o MongoDB como o comando `mongod` ou de colocá-lo em execução automática, para que a API funcione, é essencial que o mongo esteja sendo executado.
-+ ##### Execute e você terá uma api escutando em `localhost:4000`
++ ##### Execute e você terá uma api escutando em `localhost:5520`
   - **Você irá precisar de uma ferramenta para fazer requisições HTTP**   
   Para isso você pode instalar o [POSTMAN](https://www.getpostman.com/)
   que é uma ótima ferramenta, antes um app do chrome, hoje um software standalone que você pode baixar e instalar sem dificuldade.  
   Se tiver no linux (Que eu aconselho fortemente), pode utilizar o [curl](https://curl.haxx.se/docs/manpage.html), que é utilizado nos exemplos abaixo
 
   - **Cadastre um user novo**
-  Para cadastrar um novo usuário você precisa consumir a rota **http://localhost:4000/api/v1/users** utilizando o método POST, passando o seguinte objeto como data:  
+  Para cadastrar um novo usuário você precisa consumir a rota **http://localhost:5520/api/v1/users** utilizando o método POST, passando o seguinte objeto como data:  
 
   ```json
     {
@@ -44,11 +44,11 @@ Clonando o repo você terá uma api básica, preparada para autenticação e CRU
 
   //Exemplo com CURL:
 
-    curl -H "Content-Type: application/json" -X POST -d '{  "username": "seu nome", "email": "seu@email.com", "senha": "senha para o seu usuario"}' http://localhost:4000/api/v1/users
+    curl -H "Content-Type: application/json" -X POST -d '{  "username": "seu nome", "email": "seu@email.com", "senha": "senha para o seu usuario"}' http://localhost:5520/api/v1/users
 
   ```
 
-  - **Faça LOGIN** Agora você já pode efetuar login, com o usuário criado acima, para isso, consuma rota **http://localhost:4000/api/v1/auth** utilizando o método POST, passando o seguinte objeto como data:  
+  - **Faça LOGIN** Agora você já pode efetuar login, com o usuário criado acima, para isso, consuma rota **http://localhost:5520/api/v1/auth** utilizando o método POST, passando o seguinte objeto como data:  
 
   ```json
     {
@@ -58,14 +58,14 @@ Clonando o repo você terá uma api básica, preparada para autenticação e CRU
 
   Exemplo com CURL:
 
-  curl -H "Content-Type: application/json" -X POST -d '{  "email": "seu@email.com", "senha": "senha para o seu usuario"}' http://localhost:4000/api/v1/auth
+  curl -H "Content-Type: application/json" -X POST -d '{  "email": "seu@email.com", "senha": "senha para o seu usuario"}' http://localhost:5520/api/v1/auth
 
   Isso retornará seu token.
 
   ```
   - **CRUD** para usuários todas as funções de CRUD estão prontas, siga o
   modelo:  
-  URL: http://localhost:4000/api/v1
+  URL: http://localhost:5520/api/v1
     - GET em /users retorna todos os usuários cadastrados
     - GET em /users/{_idDoUsuário} retorna os dados desse usuário, substitua `{_idDoUsuário}` pelo campo `_id`, a rota ficará mais ou menos assim:
       /users/59c2a1833cd2d204529667dc
