@@ -1,0 +1,38 @@
+{
+  "name": "api-starter",
+  "version": "0.0.1",
+  "description": "Starter to a beautiful API :)",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lucastafarelbs/api-start.git"
+  },
+  "keywords": [
+    "api",
+    "starter",
+    "restify",
+    "nodejs",
+    "js",
+    "javascript"
+  ],
+  "author": "lucastafarelbs.tech",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lucastafarelbs/api-start/issues"
+  },
+  "homepage": "https://github.com/lucastafarelbs/api-start#readme",
+  "devDependencies": {
+    "nodemon": "^1.14.7"
+  },
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "dotenv": "^4.0.0",
+    "jsonwebtoken": "^8.1.0",
+    "mongoose": "^5.0.0-rc1",
+    "restify": "^6.3.4"
+  }
+}
