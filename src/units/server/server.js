@@ -2,7 +2,6 @@ const DotEnv = require('dotenv').config()
 const Restify = require('restify')
 const Path = require('path')
 
-
 const serverOptions = {
     name: process.env.SERVER_NAME || 'api-starter'
   , host: process.env.SERVER_HOST || 'localhost'
