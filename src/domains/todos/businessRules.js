@@ -1,24 +1,24 @@
-const TodoModel = require('./model.js')
-const DbFunctions = require('../../support/inHouseFunctions/dbFunctions.js')
+const MongoDbFunctions = require('../../support/database/mongoDbFunctions.js')
+const CreateModel = require('./createModel.js')
 
-const create = ( data ) => {
+const create = (connection, data ) => {
   const toInsert = Object.assign( {}, data, { createdAt: new Date() } )
-  return dbFunctions.create( TodoModel, toInsert )
+  return MongoDbFunctions.create( CreateModel(connection), toInsert )
 }
 
-const getAll = ( query, options ) => DbFunctions.getAll( TodoModel, query, options )
+const getAll = (connection, query, options ) => MongoDbFunctions.getAll( CreateModel(connection), query, options )
 
-const getById = ( query ) => DbFunctions.getById( TodoModel, query )
+const getById = (connection, query ) => MongoDbFunctions.getById( CreateModel(connection), query )
 
-const updateById = ( query, data ) => {
+const updateById = (connection, query, data ) => {
   const toUpdate = Object.assign( {}, data, {
     updatedAt: new Date()
   })
   const newValues  = { $set: toUpdate }
 
-  return DbFunctions.updateById( TodoModel, query, newValues)
+  return MongoDbFunctions.updateById( CreateModel(connection), query, newValues)
 }
 
-const deleteById = ( query ) => DbFunctions.deleteById( TodoModel, query )
+const deleteById = (connection, query ) => MongoDbFunctions.deleteById( CreateModel(connection), query )
 
 module.exports = { create, getAll, getById, updateById, deleteById }

@@ -1,11 +1,9 @@
 const TodosBusinessRules = require('../../domains/todos/businessRules.js')
 
 const create = (req, res, next) => {
-
-  TodosBusinessRules.create( req.body )
+  TodosBusinessRules.create( req.$connection, req.body )
   .then( createdDoc => res.send( 200, createdDoc )  )
   .catch(err => res.send(500, err))
-
 
   next()
 }
@@ -18,9 +16,9 @@ const getAll = (req, res, next) => {
   delete req.query.skip
   delete req.query.limit
   const query = Object.assign( {}, req.query )
-  TodosBusinessRules.getAll( query, options )
-    .then(docs => res.send(200, docs))
-    .catch(err => res.send(500, err))
+  TodosBusinessRules.getAll( req.$connection, query, options )
+     .then(docs => res.send(200, docs))
+     .catch(err => res.send(500, err))
 
   next()
 }
@@ -28,7 +26,7 @@ const getAll = (req, res, next) => {
 const getById =  (req, res, next) => {
   const query = ( { _id: req.params.id } )
 
-  TodosBusinessRules.getById( query )
+  TodosBusinessRules.getById( req.$connection, query )
     .then(docs => res.send(200, docs))
     .catch(err => res.send(500, err))
 
@@ -40,7 +38,7 @@ const updateById = (req, res, next) => {
     _id: req.params.id
   }
 
-  TodosBusinessRules.updateById( condition, req.body )
+  TodosBusinessRules.updateById( req.$connection, condition, req.body )
     .then( ( doc ) => res.send( 200 , { newValues: doc } ) )
     .catch( err => {
       res.send( 500, err )
@@ -50,7 +48,7 @@ const updateById = (req, res, next) => {
 
 const deleteById = (req, res, next) => {
   const query = { _id: req.params.id }
-  TodosBusinessRules.deleteById( query )
+  TodosBusinessRules.deleteById( req.$connection, query )
   .then( doc => res.send( 204 ) )
   .catch( err => res.send( 500, err ) )
 

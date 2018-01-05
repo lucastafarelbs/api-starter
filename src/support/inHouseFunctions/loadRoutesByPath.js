@@ -6,7 +6,7 @@ const isRouteFile = fileName => isRouteFileRegex.test( fileName )
 const { flatten } = require('lodash')
 
 const getRoutesFilesFromDirname = dirname => {
-  return FilterFiles.sync( dirname, ( fp, dir ) => {
+  return FilterFiles.sync( dirname, ( fp, dir, files, recurse ) => {
     if ( isRouteFile( fp ) ) {
       return true
     }
@@ -15,9 +15,10 @@ const getRoutesFilesFromDirname = dirname => {
   }, true)
 }
 
-const loadRoutes = dirName => {
-  const routes = getRoutesFilesFromDirname( dirName ).map( require )
+const loadRoutesByPath = dirName => {
+  const routes = getRoutesFilesFromDirname( dirName )
+    .map( require )
   return flatten( routes )
 }
 
-module.exports = loadRoutes
+module.exports = loadRoutesByPath

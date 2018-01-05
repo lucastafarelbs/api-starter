@@ -1,9 +1,10 @@
 const create = ( model, data ) => {
-  const newModel = new model(data)
-  return newModel.save()
+  return model.create( data )
 }
 
-const getAll = ( model, query, options ) => model.find( query ).limit( options.limit ).skip( options.skip )
+const getAll = ( model, query, options ) => {
+  return model.find( query ).limit( options.limit ).skip( options.skip )
+}
 
 const getById = ( model, query ) => model.findOne( query )
 

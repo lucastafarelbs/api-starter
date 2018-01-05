@@ -1,25 +1,17 @@
-const route = {
-  create  ( method, path, name, version, handler ) {
-    const configurations = { method, path, name, version, handler }
-    if ( this.validateConfigs( configurations ) ){
-      return Object.assign({}, this.route( configurations ) )
-    }
-  },
-
-  validateConfigs ( configs ) {
-    return (
-         configs.method
-      && configs.path
-      && configs.handler
-    )
-  },
-  route: ( configs ) => ({
-      method: configs.method
-    , path: configs.path
-    , name: configs.name || ''
-    , version: configs.version || ''
-    , handler: configs.handler
-  })
+const validateConfigs = ( configs ) => {
+  return (
+       configs.method
+    && configs.path
+    && configs.handler
+  )
 }
 
-module.exports = route
+const routeFactory =  ( method, path, name = '', version = '', handler ) => {
+  const configurations = { method, path, name, version, handler }
+  if ( !validateConfigs( configurations ) ){
+    return null
+  }
+  return Object.assign({}, configurations )
+}
+
+module.exports = routeFactory
