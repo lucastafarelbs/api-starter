@@ -17,8 +17,8 @@ const createServer = ( serverOptions ) => {
 
   const RegisterRoutesByPath = require( '../../support/inHouseFunctions/registerRoutesByPath.js' )
   const registeredRoutes = RegisterRoutesByPath( server, Path.join( __dirname, '../routes' ) )
-  const DisplayRegisteredRoutes = require( '../../support/inHouseFunctions/displayRegisteredRoutes.js' )
-  DisplayRegisteredRoutes( registeredRoutes )
+  // const DisplayRegisteredRoutes = require( '../../support/inHouseFunctions/displayRegisteredRoutes.js' )
+  // DisplayRegisteredRoutes( registeredRoutes )
 
   return server
 }
@@ -27,7 +27,8 @@ const start = () => {
   try {
     const server = createServer( serverOptions )
     server.listen(serverOptions.port, serverOptions.host, () => {
-      console.log(`server ${server.name} listening at ${server.url}`)
+      console.log(`Server ${server.name} listening at ${server.url}`)
+      console.log(`See your routes requiring a get in ${server.url}/api`)
     })
   }
   catch( err ) {

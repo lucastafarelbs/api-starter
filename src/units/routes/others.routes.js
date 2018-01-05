@@ -11,11 +11,11 @@ const deleteById = (req, res, next) => { res.send('del /others' + req.params.id 
 const route = Path.basename(__filename).split('.')[0]
 
 const routes = [
-  RoutesFactory( 'post', `/${route}`,     `${route}:getAll`, '0.0.1', create ),
-  RoutesFactory( 'get',  `/${route}`,     `${route}:create`, '0.0.1', getAll ),
-  RoutesFactory( 'get',  `/${route}/:id`, `${route}:getById`, '0.0.1', getById ),
-  RoutesFactory( 'put',  `/${route}/:id`, `${route}:updateById`, '0.0.1', updateById ),
-  RoutesFactory( 'del',  `/${route}/:id`, `${route}:deleteById`, '0.0.1', deleteById ),
+  RoutesFactory( 'post', `/${route}`,     `${route}:getAll`, '0.0.1', [ create ] ),
+  RoutesFactory( 'get',  `/${route}`,     `${route}:create`, '0.0.1', [ getAll ] ),
+  RoutesFactory( 'get',  `/${route}/:id`, `${route}:getById`, '0.0.1', [ getById ] ),
+  RoutesFactory( 'put',  `/${route}/:id`, `${route}:updateById`, '0.0.1', [ updateById ] ),
+  RoutesFactory( 'del',  `/${route}/:id`, `${route}:deleteById`, '0.0.1', [ deleteById ] ),
 ]
 
 module.exports = routes
