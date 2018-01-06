@@ -15,11 +15,11 @@ const createServer = ( serverOptions ) => {
   server.use(Restify.plugins.acceptParser(server.acceptable))
   server.use(Restify.plugins.queryParser({ mapParams: true }))
 
-  const RegisterRoutesByPath = require( '../../support/inHouseFunctions/register-routes-by-path.js' )
+  const RegisterRoutesByPath = require( '../../support/in-house-functions/register-routes-by-path.js' )
   const registeredRoutes = RegisterRoutesByPath( server, Path.join( __dirname, '../routes' ) )
 
   if ( process.env.SERVER_ROUTES_ON_CONSOLE && ( process.env.SERVER_ROUTES_ON_CONSOLE.toString() == 'true' ) ) {
-    const DisplayRegisteredRoutes = require( '../../support/inHouseFunctions/display-registered-routes.js' )
+    const DisplayRegisteredRoutes = require( '../../support/in-house-functions/display-registered-routes.js' )
     DisplayRegisteredRoutes( registeredRoutes )
   }
 

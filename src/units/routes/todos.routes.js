@@ -1,6 +1,6 @@
 'use strict'
 const TodosHandlers = require('../handlers/todos.handlers.js')
-const RoutesFactory = require('../../support/inHouseFunctions/routes-factory.js')
+const RoutesFactory = require('../../support/in-house-functions/routes-factory.js')
 const Path = require('path')
 const route = Path.basename(__filename).split('.')[0]
 
