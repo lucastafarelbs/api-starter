@@ -1,4 +1,4 @@
-const TodosBusinessRules = require('../../domains/todos/businessRules.js')
+const TodosBusinessRules = require('../../domains/todos/business-rules.js')
 
 const create = (req, res, next) => {
   TodosBusinessRules.create( req.$connection, req.body )
@@ -17,8 +17,8 @@ const getAll = (req, res, next) => {
   delete req.query.limit
   const query = Object.assign( {}, req.query )
   TodosBusinessRules.getAll( req.$connection, query, options )
-     .then(docs => res.send(200, docs))
-     .catch(err => res.send(500, err))
+     .then(docs => res.send( 200, docs || [] ) )
+     .catch(err => res.send( 500, err ) )
 
   next()
 }
@@ -27,8 +27,8 @@ const getById =  (req, res, next) => {
   const query = ( { _id: req.params.id } )
 
   TodosBusinessRules.getById( req.$connection, query )
-    .then(docs => res.send(200, docs))
-    .catch(err => res.send(500, err))
+    .then(docs => res.send( 200, docs || {} ) )
+    .catch(err => res.send( 500, err ) )
 
   next()
 }

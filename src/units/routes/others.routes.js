@@ -1,5 +1,5 @@
 'use strict'
-const RoutesFactory = require('../../support/inHouseFunctions/routesFactory.js')
+const RoutesFactory = require('../../support/inHouseFunctions/routes-factory.js')
 const Path = require('path')
 
 const getAll = (req, res, next) => { res.send('get /others' ) }

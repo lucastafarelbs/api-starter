@@ -1,10 +1,10 @@
 const DotEnv = require('dotenv').config()
 const Restify = require('restify')
 const Path = require('path')
-
+const Package = require('../../../package.json')
 
 const serverOptions = {
-    name: process.env.SERVER_NAME || 'api-starter'
+    name: process.env.SERVER_NAME || Package.name
   , host: process.env.SERVER_HOST || 'localhost'
   , port: process.env.SERVER_PORT || '5550'
 }
@@ -15,10 +15,13 @@ const createServer = ( serverOptions ) => {
   server.use(Restify.plugins.acceptParser(server.acceptable))
   server.use(Restify.plugins.queryParser({ mapParams: true }))
 
-  const RegisterRoutesByPath = require( '../../support/inHouseFunctions/registerRoutesByPath.js' )
+  const RegisterRoutesByPath = require( '../../support/inHouseFunctions/register-routes-by-path.js' )
   const registeredRoutes = RegisterRoutesByPath( server, Path.join( __dirname, '../routes' ) )
-  // const DisplayRegisteredRoutes = require( '../../support/inHouseFunctions/displayRegisteredRoutes.js' )
-  // DisplayRegisteredRoutes( registeredRoutes )
+
+  if ( process.env.SERVER_ROUTES_ON_CONSOLE && ( process.env.SERVER_ROUTES_ON_CONSOLE.toString() == 'true' ) ) {
+    const DisplayRegisteredRoutes = require( '../../support/inHouseFunctions/display-registered-routes.js' )
+    DisplayRegisteredRoutes( registeredRoutes )
+  }
 
   return server
 }
