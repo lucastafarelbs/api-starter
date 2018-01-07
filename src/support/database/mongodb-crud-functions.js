@@ -1,14 +1,11 @@
-const create = ( model, data ) => {
-  return model.create( data )
-}
+const create = ( model, data ) => model.create( data )
 
-const getAll = ( model, query, options ) => {
-  return model.find( query ).limit( options.limit ).skip( options.skip )
-}
+const get = ( model,  query, options ) =>
+  model.find( query ).limit( options.limit ).skip( options.skip )
 
 const getById = ( model, query ) => model.findOne( query )
 
-const updateById = ( model, query, newValues) => {
+const updateById = ( model, query, newValues ) => {
   const options = {
     multi: false,
     returnOriginal: true,
@@ -18,6 +15,14 @@ const updateById = ( model, query, newValues) => {
   return model.findOneAndUpdate( query, newValues, options )
 }
 
-const deleteById = ( model, query ) => model.remove(query)
+const deleteById = ( model, query ) => model.remove( query )
 
-module.exports = { create, getAll, getById, updateById, deleteById }
+const crudFunctions = {
+    create
+  , get
+  , getById
+  , updateById
+  , deleteById
+}
+
+module.exports = crudFunctions
