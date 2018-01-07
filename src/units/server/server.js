@@ -1,10 +1,7 @@
 const DotEnv = require('dotenv').config()
 const Restify = require('restify')
 const Path = require('path')
-<<<<<<< HEAD
-=======
 const Package = require('../../../package.json')
->>>>>>> dev
 
 const serverOptions = {
     name: process.env.SERVER_NAME || Package.name
