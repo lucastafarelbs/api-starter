@@ -1,6 +1,5 @@
 const { pick } = require('lodash')
-const LoadRoutesByPath = require('./loadRoutesByPath')
-const DisplayRegisteredRoutes = require('../../support/inHouseFunctions/displayRegisteredRoutes.js')
+const LoadRoutesByPath = require('./load-routes-by-path.js')
 
 const registerRoutesByPath = (server, dirName) => {
   const routes = LoadRoutesByPath(dirName)

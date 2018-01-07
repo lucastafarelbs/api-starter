@@ -1,5 +1,5 @@
-const RoutesFactory = require('../../support/inHouseFunctions/routesFactory.js')
-const LoadRoutesByPath = require('../../support/inHouseFunctions/loadRoutesByPath.js')
+const RoutesFactory = require('../../support/in-house-functions/routes-factory.js')
+const LoadRoutesByPath = require('../../support/in-house-functions/load-routes-by-path.js')
 const Path = require('path')
 const route = Path.basename( __filename ).split('.')[0]
 const { pick } = require( 'lodash' )
