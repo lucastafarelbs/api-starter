@@ -2,7 +2,6 @@
 
 const Server = require('./src/units/server/server.js')
 
-
 const init = async () => {
   try {
     await Server.start()

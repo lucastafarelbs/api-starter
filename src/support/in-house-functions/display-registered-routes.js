@@ -3,12 +3,13 @@ const head = [
   'method',
   'path',
   'name',
-  'version'
+  'version',
+  'authenticate'
 ]
 
 const routeToRow = route => {
-  const { method, path, name, version } = route
-  return ([ method, path, name, version ])
+  const { method, path, name, version, needAuth } = route
+  return ([ method, path, name, version, needAuth ])
 }
 
 const parseRoutesToRows = routes => {

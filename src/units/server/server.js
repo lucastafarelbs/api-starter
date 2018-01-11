@@ -1,5 +1,6 @@
 const DotEnv = require('dotenv').config()
 const Restify = require('restify')
+const Joi = require('joi')
 const Path = require('path')
 const Package = require('../../../package.json')
 
@@ -11,9 +12,22 @@ const serverOptions = {
 
 const createServer = ( serverOptions ) => {
   const server = Restify.createServer( serverOptions )
-  server.use(Restify.plugins.bodyParser({ mapParams: true }))
-  server.use(Restify.plugins.acceptParser(server.acceptable))
-  server.use(Restify.plugins.queryParser({ mapParams: true }))
+  server.use( Restify.plugins.bodyParser( { mapParams: true } ) )
+  server.use( Restify.plugins.acceptParser( server.acceptable ) )
+  server.use( Restify.plugins.queryParser( { mapParams: true } ) )
+  server.use( Restify.plugins.gzipResponse( ) )
+
+  const getClientMiddleware = require('../middlewares/get-client.middlewares.js')
+  server.use( getClientMiddleware )
+
+  const DatabaseOpenConnectionMiddleware = require('../middlewares/database-open-connection.middlewares.js')
+  server.use( DatabaseOpenConnectionMiddleware )
+
+  const authenticationMiddleware = require('../middlewares/authentication.middlewares.js')
+  server.use( authenticationMiddleware )
+
+  const validationMiddleware = require('../middlewares/validation.middlewares.js')
+  server.use( validationMiddleware )
 
   const RegisterRoutesByPath = require( '../../support/in-house-functions/register-routes-by-path.js' )
   const registeredRoutes = RegisterRoutesByPath( server, Path.join( __dirname, '../routes' ) )

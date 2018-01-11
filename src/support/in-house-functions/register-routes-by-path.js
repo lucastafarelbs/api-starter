@@ -6,7 +6,7 @@ const registerRoutesByPath = (server, dirName) => {
 
   return routes.map( route => {
     const { method, handler } = route
-    const opts = pick(route, ['path', 'name', 'version'])
+    const opts = pick(route, ['path', 'name', 'version', 'validate', 'needAuth'])
 
     server[method](opts, handler)
     return route

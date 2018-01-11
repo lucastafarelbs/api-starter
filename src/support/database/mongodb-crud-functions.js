@@ -1,28 +1,40 @@
-const create = ( model, data ) => model.create( data )
+const createDoc = ( model, data ) => model.create( data )
 
-const get = ( model,  query, options ) =>
-  model.find( query ).limit( options.limit ).skip( options.skip )
-
-const getById = ( model, query ) => model.findOne( query )
-
-const updateById = ( model, query, newValues ) => {
-  const options = {
-    multi: false,
-    returnOriginal: true,
-    new: true,
-    upsert: true
-  }
-  return model.findOneAndUpdate( query, newValues, options )
+const getDocs = ( model, query = {}, options = {} ) => {
+  const formattedQuery = { ...query }['0'] || {}
+  const fields = { ...query }['1'] || {}
+  const page = options.limit * options.skip
+  return model.find( formattedQuery, fields ).limit( options.limit ).skip( page ).exec()
 }
 
-const deleteById = ( model, query ) => model.remove( query )
+const getDoc = ( model, query ) => {
+  const formattedQuery = { ...query }['0'] || {}
+  const fields = { ...query }['1'] || {}
+
+  return model.findOne( formattedQuery, fields ).exec()
+}
+
+const updateDoc = ( model, query, newValues ) => {
+  const formattedQuery = { ...query }['0'] || {}
+  const fields = { ...query }['1'] || {}
+  const options = {
+      multi: false
+    , returnOriginal: true
+    , fields: fields
+    , new: true
+    , upsert: false
+  }
+  return model.findOneAndUpdate( formattedQuery, newValues, options )
+}
+
+const deleteDoc = ( model, query ) => model.remove( query )
 
 const crudFunctions = {
-    create
-  , get
-  , getById
-  , updateById
-  , deleteById
+    createDoc
+  , getDocs
+  , getDoc
+  , updateDoc
+  , deleteDoc
 }
 
 module.exports = crudFunctions

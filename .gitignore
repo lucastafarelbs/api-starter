@@ -8,3 +8,6 @@ npm-debug.log*
 
 # dotenv environment variables file
 .env
+
+# API-clients data NEVER UPLOADS it to git NE-VER !
+.clients
