@@ -17,7 +17,12 @@ const create = async ( model, data ) => {
   if ( userUsingThisEmail )
     throw new Error(`userError: This email already in use by user:${ userUsingThisEmail._id }`)
 
-  const toInsert = { ...data, createdAt: CurrentDatetimeWithoutTimezone(), password: EncryptText( data.password ), username: data.email.split('@')[0] }
+  const toInsert = {
+      ...data,
+      createdAt: CurrentDatetimeWithoutTimezone(),
+      password: EncryptText( data.password ),
+      username: data.email.split('@')[0]
+  }
   return MongodbCrudFunctions.createDoc( model, toInsert )
 }
 

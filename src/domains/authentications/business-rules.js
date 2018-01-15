@@ -5,88 +5,56 @@ const GetModel = require('../models/get-model.js')
 const CurrentDatetimeUtc= require('../../support/in-house-functions/date-time/current-datetime-utc')
 
 const validatePassword = ( passwordRaw, passwordEncrypted) =>
-  CompareEncryptedText( passwordRaw, passwordEncrypted)
+  CompareEncryptedText( passwordRaw, passwordEncrypted )
 
-const login = async ( req, res ) => {
+const login = async ( req ) => {
   const UserModel = GetModel( req.$connection, 'users' )
   const queryByEmail = { email: req.body.usernameOrEmail }
   const queryByUsername = { username: req.body.usernameOrEmail }
   const queryUser = (req.body.usernameOrEmail.includes('@')) ? queryByEmail :  queryByUsername
-  await UserModel.findOne( queryUser, ( errUser, user ) => {
-    if ( errUser ) {
-      const errorMessage = 'loginError: ' + errUser.message|| ' User error '
-      res.send( 500, errorMessage )
-      return next( false )
-    }
-    if ( !user ) {
-      const errorMessage = 'loginError: User doesn\'t exists'
-      res.send( 500, errorMessage )
-      return next( false )
-    }
-    if ( !validatePassword( req.body.password, user.password ) ) {
-      const errorMessage = 'loginError: Invalid password'
-      res.send( 500, errorMessage )
-      return next( false )
-    }
+  const foundUser = await UserModel.findOne( queryUser )
+  if ( !foundUser )
+    throw new Error('loginError: User doesn\'t exists')
 
-    const AuthModel = GetModel( req.$connection, 'authentications')
-    const queryAuthLogged = {
-        userId : user._id
-      , deviceName:  req.body.deviceName
-      , networkIp: req.body.networkIp
-      , platformOS:  req.body.platformOS
-    }
+  if ( !validatePassword( req.body.password, foundUser.password ) )
+    throw new Error('loginError: Invalid password')
 
-    req.$user = {
-      userId: user._id,
-      userRole: user.role
-    }
+  const AuthModel = GetModel( req.$connection, 'authentications')
+  const queryAuthLogged = {
+      userId : foundUser._id
+    , deviceName:  req.body.deviceName
+    , networkIp: req.body.networkIp
+    , platformOS:  req.body.platformOS
+  }
 
-    AuthModel.findOne( queryAuthLogged, ( errAuth, auth ) => {
-      if ( errAuth ){
-        const errorMessage = 'loginError: ' + errAuth.message|| ' Authenticaion error '
-        res.send( 500, errorMessage )
-        return next( false )
-      }
+  const payloadToken = {
+    userId: foundUser._id,
+    userRole: foundUser.role
+  }
 
-      const tokenObject = {
-        secret: req.$client.apiSecret,
-        payload: req.$user
-      }
-      req.$token =  GenerateJwt( tokenObject )
-      const authData = {
-          token: req.$token
-        , userId: req.$user.userId
-        , deviceName: req.body.deviceName
-        , networkIp: req.body.networkIp
-        , platformOS: req.body.platformOS
-      }
+  const foundAuth = await AuthModel.findOne( queryAuthLogged )
+  const tokenObject = {
+    secret: req.$client.apiSecret,
+    payload: payloadToken
+  }
+  req.$token =  GenerateJwt( tokenObject )
+  const authData = {
+      token: req.$token
+    , userId: payloadToken.userId
+    , deviceName: req.body.deviceName
+    , networkIp: req.body.networkIp
+    , platformOS: req.body.platformOS
+  }
 
-      if (!auth) {
-        const createData = { ...authData, createdAt: CurrentDatetimeUtc() }
-        AuthModel.create( createData, ( errCreateAuth, createdAuth) => {
-          if ( errCreateAuth ){
-            const errorMessage = 'loginError: ' + errAuth.message|| ' Authenticaion error '
-            res.send( 500, errorMessage )
-            return next( false )
-          }
-          res.send(200, { token: req.$token })
-        })
-      }
-      else {
-        const updateData = { ...authData, updatedAt: CurrentDatetimeUtc() }
-        AuthModel.findOneAndUpdate( { _id: auth._id }, updateData, { multi : false}, ( errUpdateAuth, updatedAuth) => {
-          if ( errUpdateAuth ){
-            const errorMessage = 'loginError: ' + errAuth.message|| ' Authenticaion error '
-            res.send( 500, errorMessage )
-            return next( false )
-          }
-          res.send(200, { token: req.$token })
+  if (!foundAuth) {
+    const createData = { ...authData, createdAt: CurrentDatetimeUtc() }
+    await AuthModel.create( createData )
+    return req.$token
+  }
 
-        })
-      }
-    })
-  })
+  const updateData = { ...authData, updatedAt: CurrentDatetimeUtc() }
+  await AuthModel.findOneAndUpdate( { _id: foundAuth._id }, updateData, { multi : false} )
+  return req.$token
 }
 
 const logout = ( model, query ) => MongodbCrudFunctions.deleteDoc( model, query )
