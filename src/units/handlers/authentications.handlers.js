@@ -4,7 +4,15 @@ const BusinessRules = require(`../../domains/${thisHandler}/business-rules.js`)
 const GetModel = require('../../domains/models/get-model.js')
 
 const login = async (req, res, next) => {
-  await BusinessRules.login( req, res )
+  try {
+    const token = await BusinessRules.login( req, res, next )
+    res.send(200, { token })
+    next()
+  } catch (e) {
+    console.log( 'error: \n', e);
+    res.send( 500, e.message )
+    next( false )
+  }
 }
 
 const logout = (req, res, next) => {
