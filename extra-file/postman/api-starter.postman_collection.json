@@ -1,0 +1,302 @@
+{
+	"info": {
+		"name": "api-starter",
+		"_postman_id": "4f212cfa-6cd4-d69f-cfd3-fcc5522de3ed",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "users",
+			"description": "",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "host",
+								"value": "development"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"fullname\": \"Nome Completo\"\n  , \"email\": \"mail@mail.com\"\n  ,\t\"password\": \"123456\"\n  ,\t\"role\": \"administrator\"\n}"
+						},
+						"url": {
+							"raw": "{{server}}/users",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "get-all",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "client",
+								"value": "development"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{server}}/users",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "get-all ( active )",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "client",
+								"value": "development"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{server}}/users?status=true",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "true",
+									"equals": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "get-all ( inactive )",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "client",
+								"value": "development"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{server}}/users?status=false",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users"
+							],
+							"query": [
+								{
+									"key": "status",
+									"value": "false",
+									"equals": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "get-by-id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "client",
+								"value": "development"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{server}}/users/5a5e2f34f2add72ec0e777ba",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"5a5e2f34f2add72ec0e777ba"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "update-by-id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\t\n    \"status\": true\n  , \"fullname\": \"NOME COMPLETO ALTERADO\"\n  , \"email\": \"mail@mail.com\"\n  , \"role\": \"administrator\"\n  , \"password\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "{{server}}/users/5a5e2f34f2add72ec0e777ba",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"5a5e2f34f2add72ec0e777ba"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "delete-by-id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{server}}/users/5a5e2f34f2add72ec0e777ba",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"users",
+								"5a5e2f34f2add72ec0e777ba"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "authentications",
+			"description": "",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n\t\"usernameOrEmail\": \"mail\"\n  , \"password\": \"123456\"\n  , \"deviceName\": \"Notebook\"\n  , \"networkIp\": \"177.255.255.255\"\n  , \"platformOS\": \"LinuxOS\"\n} "
+						},
+						"url": {
+							"raw": "{{server}}/authentications",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"authentications"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n\t\"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI1YTVlMmYzNGYyYWRkNzJlYzBlNzc3YmEiLCJ1c2VyUm9sZSI6ImFkbWluaXN0cmF0b3IiLCJpYXQiOjE1MTYxMjQ1NzMsImV4cCI6MTUxNjcyOTM3M30.rK-DrH7XlK3KJZS5xJmx_U52Nc4S76teApQl3trv8Lc\"\n} "
+						},
+						"url": {
+							"raw": "{{server}}/authentications",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"authentications"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
