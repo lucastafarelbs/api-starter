@@ -6,8 +6,9 @@ const thisRoute = Path.basename(__filename).split('.')[0]
 const thisHandlers = require(`../handlers/${thisRoute}.handlers.js`)
 const DatabaseCloseConnectionMiddleware = require('../../middlewares/database-close-connection.middlewares.js')
 
-const getValidations = Fs.existsSync( Path.join( __dirname, `../../../domains/${thisRoute}/validations/get.validations.js` ) )
-  ? require(`../../../domains/users/validations/get.validations.js`)
+const pathToValidations =  `../../../domains/${thisUnit}/validations/get.validations.js`
+const getValidations = Fs.existsSync( Path.join( __dirname, pathToValidations ) )
+  ? require( pathToValidations )
   : {}
 
 const route = {
