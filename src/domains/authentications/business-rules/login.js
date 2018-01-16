@@ -1,8 +1,7 @@
-const MongodbCrudFunctions = require('../../support/database/mongodb-crud-functions.js')
-const GenerateJwt = require('../../support/in-house-functions/jwt/generate-jwt.js')
-const CompareEncryptedText = require('../../support/in-house-functions/cryptography/compare-encrypted-text.js')
-const GetModel = require('../models/get-model.js')
-const CurrentDatetimeUtc= require('../../support/in-house-functions/date-time/current-datetime-utc')
+const GenerateJwt = require('../../../support/in-house-functions/jwt/generate-jwt.js')
+const CompareEncryptedText = require('../../../support/in-house-functions/cryptography/compare-encrypted-text.js')
+const GetModel = require('../../models/get-model.js')
+const CurrentDatetimeUtc= require('../../../support/in-house-functions/date-time/current-datetime-utc')
 
 const validatePassword = ( passwordRaw, passwordEncrypted) =>
   CompareEncryptedText( passwordRaw, passwordEncrypted )
@@ -28,14 +27,14 @@ const login = async ( req ) => {
   }
 
   const payloadToken = {
-    userId: foundUser._id,
-    userRole: foundUser.role
+      userId: foundUser._id
+    , userRole: foundUser.role
   }
 
   const foundAuth = await AuthModel.findOne( queryAuthLogged )
   const tokenObject = {
-    secret: req.$client.apiSecret,
-    payload: payloadToken
+      secret: req.$client.apiSecret
+    , payload: payloadToken
   }
   req.$token =  GenerateJwt( tokenObject )
   const authData = {
@@ -53,10 +52,9 @@ const login = async ( req ) => {
   }
 
   const updateData = { ...authData, updatedAt: CurrentDatetimeUtc() }
-  await AuthModel.findOneAndUpdate( { _id: foundAuth._id }, updateData, { multi : false} )
+  await AuthModel.findOneAndUpdate( { _id: foundAuth._id }, updateData, { multi : false } )
   return req.$token
 }
 
-const logout = ( model, query ) => MongodbCrudFunctions.deleteDoc( model, query )
 
-module.exports = { login, logout }
+module.exports = { login }

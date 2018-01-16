@@ -29,11 +29,16 @@ const createServer = ( serverOptions ) => {
   const validationMiddleware = require('../middlewares/validation.middlewares.js')
   server.use( validationMiddleware )
 
-  const RegisterRoutesByPath = require( '../../support/in-house-functions/register-routes-by-path.js' )
-  const registeredRoutes = RegisterRoutesByPath( server, Path.join( __dirname, '../routes' ) )
+  const RegisterRoutesByPath = require( '../../support/in-house-functions/routes-manager/register-routes-by-path.js' )
+  const registeredRoutes = RegisterRoutesByPath( server, Path.join( __dirname, '../' ) )
+
+  server.get('/', (req, res, next) => {
+    res.send(`Everything's OK. ${ server.name } is started, enjoy it :)`)
+    next()
+  })
 
   if ( process.env.SERVER_ROUTES_ON_CONSOLE && ( process.env.SERVER_ROUTES_ON_CONSOLE.toString() == 'true' ) ) {
-    const DisplayRegisteredRoutes = require( '../../support/in-house-functions/display-registered-routes.js' )
+    const DisplayRegisteredRoutes = require( '../../support/in-house-functions/routes-manager/display-registered-routes.js' )
     DisplayRegisteredRoutes( registeredRoutes )
   }
 
@@ -45,7 +50,6 @@ const start = () => {
     const server = createServer( serverOptions )
     server.listen(serverOptions.port, serverOptions.host, () => {
       console.log(`Server ${server.name} listening at ${server.url}`)
-      console.log(`See your routes requiring a get in ${server.url}/api`)
     })
   }
   catch( err ) {

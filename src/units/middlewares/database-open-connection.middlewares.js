@@ -1,8 +1,17 @@
-const MongodbConnection = require('../database/mongodb-connection.js')
+const Mongoose = require('mongoose')
+
+const start = ( uri ) => {
+  const connectionError = ( err ) =>
+    console.log(`An error has occurred when trying to start the MongoDB Database for URI:\n${ uri }`, err )
+
+  const conn = Mongoose.createConnection( uri, {  poolSize: 5 } )
+  conn.on('error', connectionError )
+  return conn
+}
 
 const databaseConnection = async ( req, res, next ) => {
 
-  const connection = await MongodbConnection( req.$client.dbHost )
+  const connection = await start( req.$client.dbHost )
 
   if ( ( connection instanceof Error ) || !connection ){
     const errorObject = {
