@@ -42,7 +42,6 @@ const queryCoordinators = ( model, query = {} ) => {
 }
 
 const queryProfessionalMoms = ( model, query = {} ) => {
-  console.log('get', query);
   const fields =  {
       ...commonFields
     , immediateSupervisor: 1
