@@ -7,6 +7,164 @@
 	},
 	"item": [
 		{
+			"name": "examples",
+			"description": "",
+			"item": [
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "host",
+								"value": "development"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t  \"exampleFieldString\": \"Example\"\n\t, \"exampleFieldDate\": \"1994-07-18T07:30:00\"\n}"
+						},
+						"url": {
+							"raw": "{{server}}/examples",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"examples"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "get-all",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "client",
+								"value": "development"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{server}}/examples",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"examples"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "get-by-id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "client",
+								"value": "development"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {},
+						"url": {
+							"raw": "{{server}}/examples/5a5f42bb926768070df78b30",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"examples",
+								"5a5f42bb926768070df78b30"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "update-by-id",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\t\n\t  \"exampleFieldString\": \"Example changed\"\n}"
+						},
+						"url": {
+							"raw": "{{server}}/examples/5a5f42bb926768070df78b30",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"examples",
+								"5a5f42bb926768070df78b30"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "delete-by-id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{server}}/examples/5a5f42bb926768070df78b30",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"examples",
+								"5a5f42bb926768070df78b30"
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "users",
 			"description": "",
 			"item": [
@@ -155,13 +313,13 @@
 						],
 						"body": {},
 						"url": {
-							"raw": "{{server}}/users/5a5e2f34f2add72ec0e777ba",
+							"raw": "{{server}}/users/5a5f43c3a7378908b81bc493",
 							"host": [
 								"{{server}}"
 							],
 							"path": [
 								"users",
-								"5a5e2f34f2add72ec0e777ba"
+								"5a5f43c3a7378908b81bc493"
 							]
 						},
 						"description": ""
