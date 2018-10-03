@@ -1,6 +1,6 @@
 'use strict';
 
-const Server = require('./src/units/server/server.js')
+const Server = require('./src/server/server.js')
 
 const init = async () => {
   try {

@@ -26,16 +26,16 @@
   },
   "homepage": "https://github.com/lucastafarelbs/api-start#readme",
   "devDependencies": {
-    "nodemon": "^1.14.7"
+    "nodemon": "^1.18.4"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "dotenv": "^4.0.0",
     "filter-files": "^0.4.0",
     "is-directory": "^0.3.1",
-    "joi": "^13.1.0",
+    "joi": "^13.6.0",
     "jsonwebtoken": "^8.1.0",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.11",
     "moment": "^2.20.1",
     "mongoose": "^5.0.0-rc2",
     "restify": "^6.3.4",
